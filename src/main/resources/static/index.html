@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>와이파이 정보 구하기</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <h1>와이파이 정보 구하기</h1>
+    <ul>
+        <li v-for="wifi in wifiDataList">
+            Name: {{ wifi.mainName }} - Address: {{ wifi.address1 }}, {{ wifi.address2 }}
+        </li>
+    </ul>
+    <a href="http://localhost:8080">홈</a> |
+    <a href="http://localhost:8080">위치 히스토리 목록</a> |
+    <a href="/wifis" id="loadWifi">Open API 와이파이 정보 가져오기</a><br><br>
+    <label for="latitude">LAT:</label>
+    <input type="text" id="latitude" value="0.0">
+    <label for="longitude">, LNT:</label>
+    <input type="text" id="longitude" value="0.0">
+    <button id="getLocation">내 위치 가져오기</button>
+    <button id="getWifiInformation">근처 WIPI 정보 보기</button>
+    <h1 id="result"></h1>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
