@@ -5,15 +5,12 @@ import personal.wifi.entity.wifi.WifiData;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 @Repository
 public class WifiRepository {
 
-    public WifiRepository() {
+    public void createWifiTable() {
 
         try (Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
              Statement stmt = c.createStatement()) {
@@ -54,6 +51,8 @@ public class WifiRepository {
     }
 
     public void save(WifiData wifiInformation) {
+
+        createWifiTable();
 
         try (Connection c = DriverManager.getConnection("jdbc:sqlite:test.db");
              Statement stmt = c.createStatement()) {
