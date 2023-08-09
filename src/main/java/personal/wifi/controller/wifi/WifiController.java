@@ -10,15 +10,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import personal.wifi.container.WifiInformationContainer;
 import personal.wifi.dto.external_api.WifiApiResponseDto;
 import personal.wifi.dto.wifi.WifiDataDto;
-import personal.wifi.dto.wifi.WifiResponseDto;
 import personal.wifi.service.wifi.WifiService;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -30,6 +30,8 @@ public class WifiController {
 
     private static final Logger logger = LoggerFactory.getLogger(WifiController.class);
 
+    private WebClient webClient;
+
     @Value("${wifi-service.host}")
     private String wifiServiceHost;
 
@@ -39,40 +41,84 @@ public class WifiController {
     @Value("${wifi-service.api-key}")
     private String wifiServiceApiKey;
 
-    @Value("${wifi-service.reception-count}")
-    private String receptionCount;
+    @Value("${wifi-service.first-index}")
+    int firstIndex;
 
-    private final WebClient webClient = WebClient.create();
+    @Value("${wifi-service.last-index}")
+    int lastIndex;
 
-    @PostMapping
-    public ResponseEntity<WifiResponseDto> receiveWifiInformation() {
+    @PostMapping()
+    public ResponseEntity<Integer> receiveWifiInformation() {
+
+        ExchangeStrategies exchangeStrategies = ExchangeStrategies.builder()
+                .codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(1024 * 1024)) // 예: 1MB
+                .build();
+
+        this.webClient = WebClient.builder()
+                .exchangeStrategies(exchangeStrategies)
+                .build();
 
         List<WifiDataDto> wifiDataDtoList = getResponseFlux();
 
         validateWifiDataDtoListIsNull(wifiDataDtoList);
 
-        WifiResponseDto wifiResponseDto = wifiService.saveWifiInformation(wifiDataDtoList);
+        Integer wifiCount = wifiService.saveWifiInformation(wifiDataDtoList);
 
-        return buildResponse(wifiResponseDto);
+        return ResponseEntity.created(null).body(wifiCount);
 
     }
 
     private List<WifiDataDto> getResponseFlux() {
 
-        return webClient.get()
-                .uri(uriBuilder -> uriBuilder
-                        .scheme("http")
-                        .host(wifiServiceHost)
-                        .port(wifiServicePort)
-                        .path(wifiServiceApiKey + "/json/TbPublicWifiInfo/1/" + receptionCount)
-                        .build())
-                .accept(MediaType.APPLICATION_JSON)
-                .retrieve()
-                .bodyToMono(WifiApiResponseDto.class)
-                .doOnNext(wifiRequestDto -> logger.info("wifiRequestDto: " + wifiRequestDto))
-                .map(WifiApiResponseDto::getWifiInformationContainer)
-                .map(WifiInformationContainer::getWifiData)
-                .block();
+        List<WifiDataDto> allWifiData = new ArrayList<>();
+
+        while (true) {
+
+            WifiApiResponseDto response = webClient.get()
+                    .uri(uriBuilder -> uriBuilder
+                            .scheme("http")
+                            .host(wifiServiceHost)
+                            .port(wifiServicePort)
+                            .path(wifiServiceApiKey + "/json/TbPublicWifiInfo/" + firstIndex + "/" + lastIndex)
+                            .build())
+                    .accept(MediaType.APPLICATION_JSON)
+                    .retrieve()
+                    .bodyToMono(WifiApiResponseDto.class)
+                    .block();
+
+            if (response.getWifiInformationContainer() == null) {
+                break;
+            }
+
+            List<WifiDataDto> wifiDataDtoList = response.getWifiInformationContainer().getWifiData();
+
+            allWifiData.addAll(wifiDataDtoList);
+
+            firstIndex += 1_000;
+            lastIndex += 1_000;
+
+        }
+
+        firstIndex = 1;
+        lastIndex = 1_000;
+
+        return allWifiData;
+
+    }
+
+    private ResponseEntity<Integer> buildResponse
+            (Integer wifiCount) {
+
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/load-wifi")
+                .buildAndExpand(wifiCount)
+                .toUri();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(location);
+
+        return ResponseEntity.created(location).headers(headers).body(wifiCount);
 
     }
 
@@ -82,22 +128,6 @@ public class WifiController {
             logger.error("WebClient에서 데이터를 받아 오지 못했습니다:");
             throw new NullPointerException("JSON 파일의 역직렬화에 실패하여 wifiDataDtoList에 객체를 받아 오지 못했습니다.");
         }
-
-    }
-
-    private ResponseEntity<WifiResponseDto> buildResponse
-            (WifiResponseDto wifiResponseDto) {
-
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/wifi-informations")
-                .buildAndExpand(wifiResponseDto)
-                .toUri();
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(location);
-
-        return ResponseEntity.created(location).headers(headers).body(wifiResponseDto);
 
     }
 
