@@ -4,11 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import personal.wifi.dto.wifi.WifiDataDto;
-import personal.wifi.dto.wifi.WifiResponseDto;
 import personal.wifi.entity.wifi.WifiData;
 import personal.wifi.repository.wifi.WifiRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,10 +16,12 @@ public class WifiServiceImpl implements WifiService {
 
     private final WifiRepository wifiRepository;
 
-    @Override
-    public WifiResponseDto saveWifiInformation(List<WifiDataDto> wifiDataDtoList) {
+    private Integer wifiCount;
 
-        List<WifiData> wifiDataList = new ArrayList<>();
+    @Override
+    public Integer saveWifiInformation(List<WifiDataDto> wifiDataDtoList) {
+
+        wifiCount = 0;
 
         for (WifiDataDto wifiDataDto : wifiDataDtoList) {
 
@@ -46,15 +46,11 @@ public class WifiServiceImpl implements WifiService {
 
             wifiRepository.save(wifiData);
 
-            wifiDataList.add(wifiData);
+            ++wifiCount;
 
         }
 
-        WifiResponseDto wifiResponseDto = new WifiResponseDto();
-
-        wifiResponseDto.setWifiDataList(wifiDataList);
-
-        return wifiResponseDto;
+        return wifiCount;
 
     }
 
