@@ -82,16 +82,16 @@ public class SQLDialect extends Dialect {
         return false;
     }
 
-    public boolean supportsCurrentTimestampSelection() {
+    public boolean supportsCurrentLocalDateTimeSelection() {
         return true;
     }
 
-    public boolean isCurrentTimestampSelectStringCallable() {
+    public boolean isCurrentLocalDateTimeSelectStringCallable() {
         return false;
     }
 
-    public String getCurrentTimestampSelectString() {
-        return "select current_timestamp";
+    public String getCurrentLocalDateTimeSelectString() {
+        return "select current_local_date_time";
     }
 
     public boolean supportsUnionAll() {

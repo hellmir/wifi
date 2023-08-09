@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Data
 public class WifiDataDto {
@@ -56,6 +56,6 @@ public class WifiDataDto {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.S")
     @JsonProperty("WORK_DTTM")
-    private Timestamp workedDateTime; // 작업일자
+    private LocalDateTime workedDateTime; // 작업일자
 
 }

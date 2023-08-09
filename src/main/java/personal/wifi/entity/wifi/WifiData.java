@@ -7,14 +7,14 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
+// 테이블과의 매핑 가독성을 위해 @Table, @Id, @Column 어노테이션 사용
 
 @Getter
 @Table(name = "wifi_information")
 @NoArgsConstructor
 public class WifiData {
-
-    // 테이블과의 매핑 가독성을 위해 @Id, @Column 어노테이션 사용
 
     @Id
     @Column(name = "X_SWIFI_MGR_NO")
@@ -63,14 +63,14 @@ public class WifiData {
     private Float longitude; // Y좌표
 
     @Column(name = "WORK_DTTM")
-    private Timestamp workedDateTime; // 작업일자
+    private LocalDateTime workedDateTime; // 작업일자
 
     @Builder
     public WifiData(String managementNo, String wardOffice, String mainName,
                     String address1, String address2, String installationFloor, String installationType,
                     String installationManufacturedBy, String serviceSeparatedEntry,
                     String CMCWR, String constructionYear, String inoutDoor, String REMARS3,
-                    Float latitude, Float longitude, Timestamp workedDateTime) {
+                    Float latitude, Float longitude, LocalDateTime workedDateTime) {
 
         this.managementNo = managementNo;
         this.wardOffice = wardOffice;
