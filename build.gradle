@@ -30,6 +30,7 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     implementation 'org.xerial:sqlite-jdbc:3.42.0.0'
+    implementation 'org.thymeleaf:thymeleaf-spring5:3.0.13.RELEASE'
 
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
