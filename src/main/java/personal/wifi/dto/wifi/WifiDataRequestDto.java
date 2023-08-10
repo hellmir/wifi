@@ -4,10 +4,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 @Data
-public class WifiDataDto {
+public class WifiDataRequestDto {
 
     @JsonProperty("X_SWIFI_MGR_NO")
     private String managementNo; // 관리번호
@@ -49,13 +49,13 @@ public class WifiDataDto {
     private String REMARS3; // wifi접속환경
 
     @JsonProperty("LAT")
-    private Float latitude; // X좌표
+    private Double latitude; // X좌표
 
     @JsonProperty("LNT")
-    private Float longitude; // Y좌표
+    private Double longitude; // Y좌표
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.S")
     @JsonProperty("WORK_DTTM")
-    private LocalDateTime workedDateTime; // 작업일자
+    private Timestamp workedDateTime; // 작업일자
 
 }
