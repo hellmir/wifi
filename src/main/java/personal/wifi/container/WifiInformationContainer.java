@@ -2,7 +2,7 @@ package personal.wifi.container;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import personal.wifi.dto.wifi.WifiDataDto;
+import personal.wifi.dto.wifi.WifiDataRequestDto;
 
 import java.util.List;
 import java.util.Map;
@@ -17,6 +17,6 @@ public class WifiInformationContainer {
     private Map<String, String> result;
 
     @JsonProperty("row")
-    private List<WifiDataDto> wifiData;
+    private List<WifiDataRequestDto> wifiData;
 
 }
