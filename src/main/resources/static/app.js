@@ -32,11 +32,32 @@ document.getElementById('getNearWifiInformation').addEventListener('click', func
             tableBodyHtml = '<tr><td colspan="17">위치 정보를 입력한 후에 조회해 주세요.</td></tr>';
         } else {
             wifiDataResponseDtoList.forEach(function (wifi) {
-                tableBodyHtml += '<tr><td>' + wifi.distance + '</td><td>' + wifi.managementNo + '</td><td>' + wifi.wardOffice + '</td><td>' + wifi.mainName + '</td><td>' + wifi.address1 + '</td><td>' + wifi.address2 + '</td><td>' + wifi.installationFloor + '</td><td>' + wifi.installationType + '</td><td>' + wifi.installationManufacturedBy + '</td><td>' + wifi.serviceSeparatedEntry + '</td><td>' + wifi.CMCWR + '</td><td>' + wifi.constructionYear + '</td><td>' + wifi.inoutDoor + '</td><td>' + wifi.REMARS3 + '</td><td>' + wifi.latitude + '</td><td>' + wifi.longitude + '</td><td>' + wifi.workedDateTime + '</td></tr>';
+
+                tableBodyHtml += '<tr>' +
+                    '<td>' + wifi.distance + '</td>' +
+                    '<td>'+ wifi.managementNo + '</td>' +
+                    '<td>' + wifi.wardOffice + '</td>' +
+                    '<td>' + wifi.mainName + '</td>' +
+                    '<td>' + wifi.address1 + '</td>' +
+                    '<td>' + wifi.address2 + '</td>' +
+                    '<td>' + wifi.installationFloor + '</td>' +
+                    '<td>' + wifi.installationType + '</td>' +
+                    '<td>' + wifi.installationManufacturedBy + '</td>' +
+                    '<td>' + wifi.serviceSeparatedEntry + '</td>' +
+                    '<td>' + wifi.CMCWR + '</td>' +
+                    '<td>' + wifi.constructionYear + '</td>' +
+                    '<td>' + wifi.inoutDoor + '</td>' +
+                    '<td>' + wifi.REMARS3 + '</td>' +
+                    '<td>' + wifi.latitude + '</td>' +
+                    '<td>' + wifi.longitude + '</td>' +
+                    '<td>' + wifi.workedDateTime + '</td>' +
+                    '</tr>';
+
             });
         }
 
         document.getElementById('wifiTableBody').innerHTML = tableBodyHtml;
+
     });
 
 });
