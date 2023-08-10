@@ -5,14 +5,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 // 테이블과의 매핑 가독성을 위해 @Table, @Id, @Column 어노테이션 사용
 
 @Getter
-@Table(name = "wifi_information")
+@Entity
+@Table(name = "wifi_data")
 @NoArgsConstructor
 public class WifiData {
 
@@ -57,20 +59,22 @@ public class WifiData {
     private String REMARS3; // wifi접속환경
 
     @Column(name = "LAT")
-    private Float latitude; // X좌표
+    private Double latitude; // X좌표
 
     @Column(name = "LNT")
-    private Float longitude; // Y좌표
+    private Double longitude; // Y좌표
 
     @Column(name = "WORK_DTTM")
-    private LocalDateTime workedDateTime; // 작업일자
+    private Timestamp workedDateTime; // 작업일자
+
+    private Double distance; // 현재 위치와의 거리(km)
 
     @Builder
-    public WifiData(String managementNo, String wardOffice, String mainName,
+    private WifiData(String managementNo, String wardOffice, String mainName,
                     String address1, String address2, String installationFloor, String installationType,
                     String installationManufacturedBy, String serviceSeparatedEntry,
                     String CMCWR, String constructionYear, String inoutDoor, String REMARS3,
-                    Float latitude, Float longitude, LocalDateTime workedDateTime) {
+                    Double latitude, Double longitude, Timestamp workedDateTime, Double distance) {
 
         this.managementNo = managementNo;
         this.wardOffice = wardOffice;
@@ -88,6 +92,7 @@ public class WifiData {
         this.latitude = latitude;
         this.longitude = longitude;
         this.workedDateTime = workedDateTime;
+        this.distance = distance;
 
     }
 
