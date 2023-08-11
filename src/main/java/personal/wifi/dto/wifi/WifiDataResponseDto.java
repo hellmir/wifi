@@ -1,11 +1,8 @@
 package personal.wifi.dto.wifi;
 
 import lombok.Data;
-import personal.wifi.entity.wifi.WifiData;
 
-import javax.persistence.Column;
 import java.sql.Timestamp;
-import java.util.List;
 
 @Data
 public class WifiDataResponseDto {
