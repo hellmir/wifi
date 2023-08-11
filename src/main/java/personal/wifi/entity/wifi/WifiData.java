@@ -8,8 +8,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-// 테이블과의 매핑 가독성을 위해 @Table, @Id, @Column 어노테이션 사용
 import java.time.LocalDateTime;
 
 @Getter
