@@ -8,9 +8,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.sql.Timestamp;
 
 // 테이블과의 매핑 가독성을 위해 @Table, @Id, @Column 어노테이션 사용
+import java.time.LocalDateTime;
 
 @Getter
 @Entity
@@ -65,16 +65,16 @@ public class WifiData {
     private Double longitude; // Y좌표
 
     @Column(name = "WORK_DTTM")
-    private Timestamp workedDateTime; // 작업일자
+    private LocalDateTime workedDateTime; // 작업일자
 
     private Double distance; // 현재 위치와의 거리(km)
 
     @Builder
     private WifiData(String managementNo, String wardOffice, String mainName,
-                    String address1, String address2, String installationFloor, String installationType,
-                    String installationManufacturedBy, String serviceSeparatedEntry,
-                    String CMCWR, String constructionYear, String inoutDoor, String REMARS3,
-                    Double latitude, Double longitude, Timestamp workedDateTime, Double distance) {
+                     String address1, String address2, String installationFloor, String installationType,
+                     String installationManufacturedBy, String serviceSeparatedEntry,
+                     String CMCWR, String constructionYear, String inoutDoor, String REMARS3,
+                     Double latitude, Double longitude, LocalDateTime workedDateTime) {
 
         this.managementNo = managementNo;
         this.wardOffice = wardOffice;
@@ -92,7 +92,6 @@ public class WifiData {
         this.latitude = latitude;
         this.longitude = longitude;
         this.workedDateTime = workedDateTime;
-        this.distance = distance;
 
     }
 

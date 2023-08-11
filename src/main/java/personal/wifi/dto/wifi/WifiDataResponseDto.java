@@ -2,7 +2,7 @@ package personal.wifi.dto.wifi;
 
 import lombok.Data;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Data
 public class WifiDataResponseDto {
@@ -23,6 +23,6 @@ public class WifiDataResponseDto {
     private String REMARS3; // wifi접속환경
     private Double latitude; // X좌표
     private Double longitude; // Y좌표
-    private Timestamp workedDateTime; // 작업일자
+    private LocalDateTime workedDateTime; // 작업일자
 
 }
