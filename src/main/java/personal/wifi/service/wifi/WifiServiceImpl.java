@@ -9,6 +9,7 @@ import personal.wifi.dto.wifi.WifiDataResponseDto;
 import personal.wifi.entity.wifi.WifiData;
 import personal.wifi.repository.wifi.WifiRepository;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,6 +58,8 @@ public class WifiServiceImpl implements WifiService {
 
         List<WifiData> nearTwentyWifis = wifiRepository.findNearTwentyWifis(myLAT, myLNT);
 
+        if (nearTwentyWifis.isEmpty()) {
+            throw new EntityNotFoundException("저장된 와이파이 데이터가 없습니다.");
         }
 
         return nearTwentyWifis.stream()

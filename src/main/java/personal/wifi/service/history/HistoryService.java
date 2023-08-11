@@ -32,6 +32,10 @@ public class HistoryService {
 
         List<History> historyList = historyRepository.findAll();
 
+        if (historyList.isEmpty()) {
+            throw new EntityNotFoundException("저장된 히스토리 데이터가 없습니다.");
+        }
+
         return historyList.stream()
                 .map(history -> modelMapper.map(history, HistoryResponseDto.class))
                 .collect(Collectors.toList());
