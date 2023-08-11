@@ -9,9 +9,6 @@ document.getElementById('getMyLocation').addEventListener('click', function () {
             document.getElementById('latitude').value = latitude;
             document.getElementById('longitude').value = longitude;
 
-            $.post("/wifis/locations", {latitude: latitude, longitude: longitude}, function (response) {
-                console.log("서버 응답: " + response);
-            });
         }, function (error) {
             alert("위치 정보를 가져올 수 없습니다. 에러 코드: " + error.code);
         });
@@ -24,17 +21,22 @@ document.getElementById('getMyLocation').addEventListener('click', function () {
 
 document.getElementById('getNearWifiInformation').addEventListener('click', function () {
 
-    $.get("/wifis", function (response) {
+    var latitude = document.getElementById('latitude').value;
+    var longitude = document.getElementById('longitude').value;
+
+    $.get("/wifis", {latitude: latitude, longitude: longitude}, function (response) {
         var wifiDataResponseDtoList = response;
         var tableBodyHtml = '';
 
         if (wifiDataResponseDtoList.length === 0) {
-            tableBodyHtml = '<tr><td colspan="17">위치 정보를 입력한 후에 조회해 주세요.</td></tr>';
+            tableBodyHtml = '<tr><td colspan="17" style="text-align: center;">' +
+                '와이파이 정보를 받아오지 못했습니다. Open API의 와이파이 정보를 가져온 후 다시 시도해 주세요.</td></tr>';
         } else {
             wifiDataResponseDtoList.forEach(function (wifi) {
+                var distance = parseFloat(wifi.distance).toFixed(4);
 
                 tableBodyHtml += '<tr>' +
-                    '<td>' + wifi.distance + '</td>' +
+                    '<td>' + distance + '</td>' +
                     '<td>'+ wifi.managementNo + '</td>' +
                     '<td>' + wifi.wardOffice + '</td>' +
                     '<td>' + wifi.mainName + '</td>' +
@@ -48,8 +50,8 @@ document.getElementById('getNearWifiInformation').addEventListener('click', func
                     '<td>' + wifi.constructionYear + '</td>' +
                     '<td>' + wifi.inoutDoor + '</td>' +
                     '<td>' + wifi.REMARS3 + '</td>' +
-                    '<td>' + wifi.latitude + '</td>' +
                     '<td>' + wifi.longitude + '</td>' +
+                    '<td>' + wifi.latitude + '</td>' +
                     '<td>' + wifi.workedDateTime + '</td>' +
                     '</tr>';
 
@@ -61,3 +63,4 @@ document.getElementById('getNearWifiInformation').addEventListener('click', func
     });
 
 });
+

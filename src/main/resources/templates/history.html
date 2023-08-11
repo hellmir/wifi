@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>와이파이 정보 구하기</title>
+</head>
+<body>
+<div id="app">
+    <h1>와이파이 정보 구하기</h1>
+    <a href="/">홈</a> |
+    <a href="/history">위치 히스토리 목록</a> |
+    <a href="/load-wifi">Open API 와이파이 정보 가져오기</a>
+    <h1 id="result"></h1>
+    <table border="1" id="wifiTable">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>X좌표</th>
+            <th>Y좌표</th>
+            <th>조회일자</th>
+            <th>삭제</th>
+        </tr>
+        </thead>
+        <tbody id="historyTableBody">
+        <tr th:each="history : ${histories}">
+            <td th:text="${history.id}"></td>
+            <td th:text="${history.latitude}"></td>
+            <td th:text="${history.longitude}"></td>
+            <td th:text="${history.viewedTime}"></td>
+            <td>
+                <button class="delete-button" th:data-id="${history.id}">삭제</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src="/history.js"></script>
+</body>
+</html>
