@@ -9,6 +9,7 @@ import personal.wifi.entity.history.History;
 import personal.wifi.repository.history.HistoryRepository;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,6 +36,8 @@ public class HistoryService {
         if (historyList.isEmpty()) {
             throw new EntityNotFoundException("저장된 히스토리 데이터가 없습니다.");
         }
+
+        Collections.reverse(historyList);
 
         return historyList.stream()
                 .map(history -> modelMapper.map(history, HistoryResponseDto.class))
