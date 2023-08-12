@@ -6,6 +6,7 @@ import org.springframework.data.repository.query.Param;
 import personal.wifi.entity.wifi.WifiData;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface WifiRepository extends JpaRepository<WifiData, Long> {
 
@@ -34,6 +35,9 @@ public interface WifiRepository extends JpaRepository<WifiData, Long> {
             "ORDER BY distance " +
             "LIMIT 20", nativeQuery = true)
     List<WifiData> findNearTwentyWifis(@Param("latitude") double latitude, @Param("longitude") double longitude);
+
+
+    Optional<WifiData> findByManagementNo(@Param("X_SWIFI_MGR_NO") String managementNo);
 
 
 }
