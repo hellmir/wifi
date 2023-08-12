@@ -120,18 +120,18 @@ public class SQLDialect extends Dialect {
 
     public String getDropForeignKeyString() {
         throw new UnsupportedOperationException
-                ("SQLiteDialect에서는 drop foreign key 문법을 지원하지 않습니다");
+                ("SQLiteDialect에서는 drop foreign key 문법을 지원하지 않습니다.");
     }
 
     public String getAddForeignKeyConstraintString(String constraintName, String[] foreignKey, String referencedTable,
                                                    String[] primaryKey, boolean referencesPrimaryKey) {
         throw new UnsupportedOperationException
-                ("SQLiteDialect에서는 add foreign key 문법을 지원하지 않습니다");
+                ("SQLiteDialect에서는 add foreign key 문법을 지원하지 않습니다.");
     }
 
     public String getAddPrimaryKeyConstraintString(String constraintName) {
         throw new UnsupportedOperationException
-                ("SQLiteDialect에서는 add primary key 문법을 지원하지 않습니다");
+                ("SQLiteDialect에서는 add primary key 문법을 지원하지 않습니다.");
     }
 
     public boolean supportsIfExistsBeforeTableName() {
