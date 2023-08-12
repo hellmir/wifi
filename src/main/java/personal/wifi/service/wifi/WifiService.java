@@ -11,4 +11,6 @@ public interface WifiService {
     Integer saveWifiInformation(List<WifiDataRequestDto> wifiDataDtoList);
 
     List<WifiDataResponseDto> getNearTwentyWifis(double myLAT, double myLNT);
+
+    WifiDataResponseDto getWifiDetail(String managementNo);
 }

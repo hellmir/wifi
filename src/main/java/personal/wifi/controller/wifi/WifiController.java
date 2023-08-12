@@ -33,4 +33,13 @@ public class WifiController {
 
     }
 
+    @GetMapping("detail")
+    public ResponseEntity<WifiDataResponseDto> getWifiDetail(@RequestParam("mgrNo") String managementNo) {
+
+        WifiDataResponseDto wifiDataResponseDto = wifiService.getWifiDetail(managementNo);
+
+        return ResponseEntity.status(HttpStatus.OK).body(wifiDataResponseDto);
+
+    }
+
 }

@@ -68,4 +68,14 @@ public class WifiServiceImpl implements WifiService {
 
     }
 
+    @Override
+    public WifiDataResponseDto getWifiDetail(String managementNo) {
+
+        WifiData wifiData = wifiRepository.findByManagementNo(managementNo)
+                .orElseThrow(() -> new EntityNotFoundException
+                        ("입력된 관리번호와 일치하는 와이파이 데이터가 없습니다. (managementNo: " + managementNo + ")"));
+
+        return modelMapper.map(wifiData, WifiDataResponseDto.class);
+    }
+
 }
