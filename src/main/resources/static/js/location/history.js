@@ -7,7 +7,7 @@ function deleteHistory(id) {
                 alert('히스토리 정보를 삭제하였습니다.');
                 location.reload();
             } else {
-                alert('삭제에 실패하였습니다. 다시 시도해주세요.');
+                alert('삭제에 실패하였습니다. 다시 시도해 주세요.');
             }
         });
     }

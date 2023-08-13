@@ -1,3 +1,7 @@
+.divbox {
+    display: inline-flex;
+}
+
 table, th, td {
     border: 1px solid lightgray;
 }
@@ -29,3 +33,16 @@ tbody tr:hover {
 .center-text {
     text-align: center;
 }
+
+.hidden {
+    display: none;
+}
+
+tr:nth-child(even) {
+    background: #f2f2f2;
+}
+
+tbody tr:hover {
+    background-color: lightgray
+}
+

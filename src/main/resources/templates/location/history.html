@@ -1,19 +1,21 @@
+<!-- 위치 히스토리 목록 view 구현 -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/css/style.css">
     <title>와이파이 정보 구하기</title>
 </head>
 <body>
-<div id="app">
-    <h1>와이파이 정보 구하기</h1>
+<div>
+    <h1>위치 히스토리 목록</h1>
     <a href="/">홈</a> |
     <a href="/history">위치 히스토리 목록</a> |
     <a href="/load-wifi">Open API 와이파이 정보 가져오기</a>
     <h1 id="result"></h1>
-    <table border="1" id="wifiTable">
+    <table border="1" id="wifiT9able">
         <thead>
         <tr>
             <th>ID</th>
@@ -36,6 +38,6 @@
         </tbody>
     </table>
 </div>
-<script src="/history.js"></script>
+<script src="/js/location/history.js"></script>
 </body>
 </html>
