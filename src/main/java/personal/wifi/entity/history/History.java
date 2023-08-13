@@ -1,14 +1,16 @@
 package personal.wifi.entity.history;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import personal.base.BaseEntity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "history")
 public class History {
 
@@ -17,7 +19,7 @@ public class History {
     @Column(name = "history_id")
     private Long id;
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false)
     private Double latitude;
 
     @Column(nullable = false)
