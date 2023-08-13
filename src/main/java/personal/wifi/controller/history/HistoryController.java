@@ -1,6 +1,7 @@
 package personal.wifi.controller.history;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,7 +28,7 @@ public class HistoryController {
 
         model.addAttribute("histories", hisoryResponseDtoList);
 
-        return "history";
+        return "location/history";
 
     }
 
@@ -36,7 +37,7 @@ public class HistoryController {
 
         historyService.deleteHistory(id);
 
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 
     }
 

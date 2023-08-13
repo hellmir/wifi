@@ -4,20 +4,16 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import personal.wifi.dto.external_api.WifiApiResponseDto;
 import personal.wifi.dto.wifi.WifiDataRequestDto;
 import personal.wifi.service.wifi.WifiService;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,7 +61,7 @@ public class PublicWifiController {
 
         model.addAttribute("wifiCount", wifiCount);
 
-        return "load-wifi";
+        return "wifi/load-wifi";
 
     }
 
@@ -113,22 +109,6 @@ public class PublicWifiController {
             logger.error("WebClient에서 데이터를 받아 오지 못했습니다:");
             throw new NullPointerException("JSON 파일의 역직렬화에 실패하여 wifiDataDtoList에 객체를 받아 오지 못했습니다.");
         }
-
-    }
-
-    private ResponseEntity<Integer> buildResponse
-            (Integer wifiCount) {
-
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/load-wifi")
-                .buildAndExpand(wifiCount)
-                .toUri();
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(location);
-
-        return ResponseEntity.created(location).headers(headers).body(wifiCount);
 
     }
 

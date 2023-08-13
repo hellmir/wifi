@@ -1,19 +1,18 @@
 package personal.wifi.entity.wifi;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import personal.wifi.entity.bookmark.BookmarkGroup;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
 @Entity
 @Table(name = "wifi_data")
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class WifiData {
 
     @Id

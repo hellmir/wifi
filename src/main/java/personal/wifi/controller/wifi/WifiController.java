@@ -3,25 +3,27 @@ package personal.wifi.controller.wifi;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import personal.wifi.dto.bookmark_group.BookmarkGroupResponseDto;
 import personal.wifi.dto.wifi.WifiDataResponseDto;
+import personal.wifi.service.bookmark.BookmarkGroupService;
 import personal.wifi.service.history.HistoryService;
 import personal.wifi.service.wifi.WifiService;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("wifis")
+@Controller
 @RequiredArgsConstructor
 public class WifiController {
 
     private final WifiService wifiService;
     private final HistoryService historyService;
+    private final BookmarkGroupService bookmarkGroupService;
 
-    @GetMapping()
+    @GetMapping("wifi")
     public ResponseEntity<List<WifiDataResponseDto>> getTwentyWifisAroundCurrentLocation
             (@RequestParam("latitude") Double myLAT, @RequestParam("longitude") Double myLNT) {
 
@@ -34,11 +36,15 @@ public class WifiController {
     }
 
     @GetMapping("detail")
-    public ResponseEntity<WifiDataResponseDto> getWifiDetail(@RequestParam("mgrNo") String managementNo) {
+    public String getWifiDetail(@RequestParam("mgrNo") String managementNo, Model model) {
 
         WifiDataResponseDto wifiDataResponseDto = wifiService.getWifiDetail(managementNo);
+        model.addAttribute("wifi", wifiDataResponseDto);
 
-        return ResponseEntity.status(HttpStatus.OK).body(wifiDataResponseDto);
+        List<BookmarkGroupResponseDto> bookmarkGroups = bookmarkGroupService.getAllBookmarkGroups();
+        model.addAttribute("bookmarkGroups", bookmarkGroups);
+
+        return "wifi/detail";
 
     }
 
