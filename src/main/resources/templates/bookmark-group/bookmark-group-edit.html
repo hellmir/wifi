@@ -1,0 +1,44 @@
+<!-- 북마크 그룹 수정 view 구현 -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>와이파이 정보 구하기</title>
+</head>
+<body>
+<div>
+    <h1>북마크 그룹 수정</h1>
+    <a href="/">홈</a> |
+    <a href="/history">위치 히스토리 목록</a> |
+    <a href="/load-wifi">Open API 와이파이 정보 가져오기</a> |
+    <a href="/bookmark-list">북마크 보기</a> |
+    <a href="/bookmark-group">북마크 그룹 관리</a>
+    <form id="bookmarkGroupEditForm" th:action="@{/bookmark-group-edit/{id}(id=${id})}" method="patch">
+        <table>
+            <tr>
+                <th>북마크 이름</th>
+                <td>
+                    <input type="text" id="name" name="name" th:value="${name}" required>
+                </td>
+            </tr>
+            <tr>
+                <th>순서</th>
+                <td>
+                    <input type="number" id="sequence" name="sequence" th:value="${sequence}" required>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center;">
+                    <a href="/bookmark-group">돌아가기</a> |
+                    <button type="submit">수정</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<script src="/js/bookmark-group/bookmark-group-edit.js"></script>
+</body>
+</html>
