@@ -1,3 +1,4 @@
+// 내 위치 가져오기 버튼 이벤트 처리(index.html)
 document.getElementById('getMyLocation').addEventListener('click', function () {
 
     if ("geolocation" in navigator) {
@@ -14,17 +15,18 @@ document.getElementById('getMyLocation').addEventListener('click', function () {
         });
 
     } else {
-        alert("사용 중인 브라우저에서 Geolocation을 지원하지 않습니다.");
+        alert("현재 이용 중인 브라우저에서 Geolocation을 지원하지 않습니다.");
     }
 
 });
 
+// 근처 WIFI 정보 보기 버튼 이벤트 처리(index.html)
 document.getElementById('getNearWifiInformation').addEventListener('click', function () {
 
     var latitude = document.getElementById('latitude').value;
     var longitude = document.getElementById('longitude').value;
 
-    $.get("/wifis", {latitude: latitude, longitude: longitude}, function (response) {
+    $.get("/wifi", {latitude: latitude, longitude: longitude}, function (response) {
         var wifiDataResponseDtoList = response;
         var tableBodyHtml = '';
 
@@ -39,7 +41,7 @@ document.getElementById('getNearWifiInformation').addEventListener('click', func
                     '<td>' + distance + '</td>' +
                     '<td>'+ wifi.managementNo + '</td>' +
                     '<td>' + wifi.wardOffice + '</td>' +
-                    '<td>' + wifi.mainName + '</td>' +
+                    '<td><a href="/detail?mgrNo=' + wifi.managementNo + '">' + wifi.mainName + '</a></td>' +
                     '<td>' + wifi.address1 + '</td>' +
                     '<td>' + wifi.address2 + '</td>' +
                     '<td>' + wifi.installationFloor + '</td>' +
@@ -63,4 +65,3 @@ document.getElementById('getNearWifiInformation').addEventListener('click', func
     });
 
 });
-
