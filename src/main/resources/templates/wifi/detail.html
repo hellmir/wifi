@@ -21,10 +21,10 @@
     <br><br>
     <select name="listName" id="listName">
         <option value="">북마크 그룹 이름 선택</option>
-        <option th:each="bookmarkGroup : ${bookmarkGroups}" th:value="${bookmarkGroup.name}" th:text="${bookmarkGroup.name}"></option>
+        <option th:each="bookmarkGroup : ${bookmarkGroups}"
+                th:value="${bookmarkGroup.name}" th:text="${bookmarkGroup.name}"></option>
     </select>
-    <button onclick="addWifiInfoToBookmark('<%=resWifi.get(0).getX_SWIFI_MGR_NO()%>',
-    document.querySelector('#listName').value)">북마크 추가하기</button>
+    <button onclick="addWifiInfoToBookmark()">북마크 추가하기</button>
     <h1 id="result"></h1>
 <table border="1" id="wifiTable">
     <tbody id="wifiTableBody">

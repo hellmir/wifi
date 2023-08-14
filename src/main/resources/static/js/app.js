@@ -26,42 +26,55 @@ document.getElementById('getNearWifiInformation').addEventListener('click', func
     var latitude = document.getElementById('latitude').value;
     var longitude = document.getElementById('longitude').value;
 
-    $.get("/wifi", {latitude: latitude, longitude: longitude}, function (response) {
-        var wifiDataResponseDtoList = response;
-        var tableBodyHtml = '';
+    var url = new URL("/wifi", window.location.origin);
+    url.searchParams.append('latitude', latitude);
+    url.searchParams.append('longitude', longitude);
 
-        if (wifiDataResponseDtoList.length === 0) {
-            tableBodyHtml = '<tr><td colspan="17" style="text-align: center;">' +
-                '와이파이 정보를 받아오지 못했습니다. Open API의 와이파이 정보를 가져온 후 다시 시도해 주세요.</td></tr>';
-        } else {
-            wifiDataResponseDtoList.forEach(function (wifi) {
-                var distance = parseFloat(wifi.distance).toFixed(4);
-
-                tableBodyHtml += '<tr>' +
-                    '<td>' + distance + '</td>' +
-                    '<td>'+ wifi.managementNo + '</td>' +
-                    '<td>' + wifi.wardOffice + '</td>' +
-                    '<td><a href="/detail?mgrNo=' + wifi.managementNo + '">' + wifi.mainName + '</a></td>' +
-                    '<td>' + wifi.address1 + '</td>' +
-                    '<td>' + wifi.address2 + '</td>' +
-                    '<td>' + wifi.installationFloor + '</td>' +
-                    '<td>' + wifi.installationType + '</td>' +
-                    '<td>' + wifi.installationManufacturedBy + '</td>' +
-                    '<td>' + wifi.serviceSeparatedEntry + '</td>' +
-                    '<td>' + wifi.CMCWR + '</td>' +
-                    '<td>' + wifi.constructionYear + '</td>' +
-                    '<td>' + wifi.inoutDoor + '</td>' +
-                    '<td>' + wifi.REMARS3 + '</td>' +
-                    '<td>' + wifi.longitude + '</td>' +
-                    '<td>' + wifi.latitude + '</td>' +
-                    '<td>' + wifi.workedDateTime + '</td>' +
-                    '</tr>';
-
-            });
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
         }
+    })
+        .then(response => response.json())
+        .then(wifiDataResponseDtoList => {
 
-        document.getElementById('wifiTableBody').innerHTML = tableBodyHtml;
+            var tableBodyHtml = '';
 
-    });
+                wifiDataResponseDtoList.forEach(function(wifi) {
+                    var distance = parseFloat(wifi.distance).toFixed(4);
+
+                    tableBodyHtml += '<tr>' +
+                        '<td>' + distance + '</td>' +
+                        '<td>' + wifi.managementNo + '</td>' +
+                        '<td>' + wifi.wardOffice + '</td>' +
+                        '<td><a href="/detail?mgrNo=' + wifi.managementNo + '">' + wifi.mainName + '</a></td>' +
+                        '<td>' + wifi.address1 + '</td>' +
+                        '<td>' + wifi.address2 + '</td>' +
+                        '<td>' + wifi.installationFloor + '</td>' +
+                        '<td>' + wifi.installationType + '</td>' +
+                        '<td>' + wifi.installationManufacturedBy + '</td>' +
+                        '<td>' + wifi.serviceSeparatedEntry + '</td>' +
+                        '<td>' + wifi.CMCWR + '</td>' +
+                        '<td>' + wifi.constructionYear + '</td>' +
+                        '<td>' + wifi.inoutDoor + '</td>' +
+                        '<td>' + wifi.REMARS3 + '</td>' +
+                        '<td>' + wifi.longitude + '</td>' +
+                        '<td>' + wifi.latitude + '</td>' +
+                        '<td>' + wifi.workedDateTime + '</td>' +
+                        '</tr>';
+                });
+
+            document.getElementById('wifiTableBody').innerHTML = tableBodyHtml;
+
+        })
+        .catch(error => {
+            console.error("오류:", error);
+            var tableBodyHtml = '<tr><td colspan="17" style="text-align: center;">' +
+                '와이파이 정보를 받아오지 못했습니다. Open API의 와이파이 정보를 가져온 후 다시 시도해 주세요.</td></tr>';
+            document.getElementById('wifiTableBody').innerHTML = tableBodyHtml;
+        });
 
 });
+
+
