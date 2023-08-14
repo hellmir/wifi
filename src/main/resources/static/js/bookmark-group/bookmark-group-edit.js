@@ -1,4 +1,4 @@
-// 수정 버튼 이벤트 처리(bookmark-group-edit.html)
+// 수정 양식 제출 이벤트 처리(bookmark-group-edit.html)
 
 document.getElementById("bookmarkGroupEditForm")
     .addEventListener("submit", function(e) {

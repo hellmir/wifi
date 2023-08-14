@@ -1,3 +1,11 @@
+// 삭제 버튼 이벤트 처리(history.html)
+
+document.querySelectorAll('.delete-button').forEach(function(button) {
+    button.addEventListener('click', function() {
+        deleteHistory(this.dataset.id);
+    });
+});
+
 function deleteHistory(id) {
     if (confirm('정말 삭제하시겠습니까?')) {
         fetch('/history?id=' + id, {
@@ -12,9 +20,3 @@ function deleteHistory(id) {
         });
     }
 }
-
-document.querySelectorAll('.delete-button').forEach(function(button) {
-    button.addEventListener('click', function() {
-        deleteHistory(this.dataset.id);
-    });
-});
