@@ -1,11 +1,13 @@
 package personal.wifi.handler;
 
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import personal.wifi.exception.TryToSaveDuplicateNameException;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -52,6 +54,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NullPointerException.class)
     public ResponseEntity<String> handleNullPointerException(NullPointerException e) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+    }
+
+    @ExceptionHandler(TryToSaveDuplicateNameException.class)
+    public ResponseEntity<String> handleTryToSaveDuplicateNameException(TryToSaveDuplicateNameException e) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
     }
 
 }

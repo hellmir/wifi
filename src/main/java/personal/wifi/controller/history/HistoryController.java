@@ -24,9 +24,9 @@ public class HistoryController {
     @GetMapping()
     public String getAllHistories(Model model) {
 
-        List<HistoryResponseDto> hisoryResponseDtoList = historyService.getAllHistories();
+        List<HistoryResponseDto> historyResponseDtoList = historyService.getAllHistories();
 
-        model.addAttribute("histories", hisoryResponseDtoList);
+        model.addAttribute("histories", historyResponseDtoList);
 
         return "location/history";
 

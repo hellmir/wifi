@@ -1,4 +1,4 @@
-package personal.wifi.controller.bookmark;
+package personal.wifi.controller.bookmark_group;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import personal.wifi.dto.bookmark_group.BookmarkGroupRequestDto;
 import personal.wifi.dto.bookmark_group.BookmarkGroupResponseDto;
-import personal.wifi.service.bookmark.BookmarkGroupService;
+import personal.wifi.service.bookmark_group.BookmarkGroupService;
 
 import java.net.URI;
 import java.util.List;
@@ -37,9 +37,12 @@ public class BookmarkGroupController {
         return "bookmark-group/bookmark-group-add";
     }
 
+    // SQLite는 lock 기법을 사용해 동시성을 관리하므로, 데이터베이스 읽기와 쓰기 작업을 컨트롤러에서 분리
     @PostMapping("bookmark-group-add")
     public ResponseEntity<BookmarkGroupResponseDto> createBookmarkGroup
             (@RequestBody BookmarkGroupRequestDto bookmarkGroupRequestDto) {
+
+        bookmarkGroupService.validateDuplicateBookmarkGroupName(bookmarkGroupRequestDto.getName());
 
         BookmarkGroupResponseDto bookmarkGroupResponseDto
                 = bookmarkGroupService.saveBookmarkGroup(bookmarkGroupRequestDto);
@@ -89,13 +92,14 @@ public class BookmarkGroupController {
         model.addAttribute("id", id);
         model.addAttribute("name", bookmarkGroupResponseDto.getName());
         model.addAttribute("sequence", bookmarkGroupResponseDto.getSequence());
+        model.addAttribute("bookmarkCount", bookmarkGroupResponseDto.getBookmarkCount());
 
         return "bookmark-group/bookmark-group-delete";
 
     }
 
     @DeleteMapping("bookmark-group-delete")
-    public ResponseEntity<BookmarkGroupResponseDto> deleteBookmarkGroup(@RequestParam Long id) {
+    public ResponseEntity<Void> deleteBookmarkGroup(@RequestParam Long id) {
 
         bookmarkGroupService.deleteBookmarkGroup(id);
 
