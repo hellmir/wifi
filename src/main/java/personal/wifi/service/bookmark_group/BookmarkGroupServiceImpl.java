@@ -1,16 +1,16 @@
-package personal.wifi.service.bookmark;
+package personal.wifi.service.bookmark_group;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import personal.wifi.dto.bookmark_group.BookmarkGroupRequestDto;
 import personal.wifi.dto.bookmark_group.BookmarkGroupResponseDto;
-import personal.wifi.entity.bookmark.BookmarkGroup;
-import personal.wifi.repository.bookmark.BookmarkGroupRepository;
+import personal.wifi.entity.bookmark_group.BookmarkGroup;
+import personal.wifi.exception.TryToSaveDuplicateNameException;
+import personal.wifi.repository.bookmark_group.BookmarkGroupRepository;
 
 import javax.persistence.EntityNotFoundException;
-import javax.transaction.Transactional;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,6 +33,7 @@ public class BookmarkGroupServiceImpl implements BookmarkGroupService {
 
     }
 
+
     @Override
     public BookmarkGroupResponseDto saveBookmarkGroup(BookmarkGroupRequestDto bookmarkGroupRequestDto) {
 
@@ -42,6 +43,32 @@ public class BookmarkGroupServiceImpl implements BookmarkGroupService {
         BookmarkGroup savedBookmarkGroup = bookmarkGroupRepository.save(bookmarkGroup);
 
         return modelMapper.map(savedBookmarkGroup, BookmarkGroupResponseDto.class);
+
+    }
+
+    @Override
+    public void validateDuplicateBookmarkGroupName(String bookmarkGroupName) {
+
+        if (bookmarkGroupRepository.findByName(bookmarkGroupName).isPresent()) {
+            throw new TryToSaveDuplicateNameException
+                    ("같은 이름의 북마크 그룹이 이미 존재합니다. (등록된 북마크 그룹 이름: " + bookmarkGroupName + ")");
+        }
+
+    }
+
+    @Override
+    public BookmarkGroupResponseDto getBookmarkGroup(Long id) {
+
+        BookmarkGroup bookmarkGroup = bookmarkGroupRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException
+                        ("해당 북마크 그룹이 존재하지 않습니다. (bookmarkGroupId: " + id + ")"));
+
+        BookmarkGroupResponseDto bookmarkGroupResponseDto
+                = modelMapper.map(bookmarkGroup, BookmarkGroupResponseDto.class);
+
+        bookmarkGroupResponseDto.setBookmarkCount(bookmarkGroup.getBookmarkList().size());
+
+        return bookmarkGroupResponseDto;
 
     }
 
@@ -70,16 +97,6 @@ public class BookmarkGroupServiceImpl implements BookmarkGroupService {
 
         bookmarkGroupRepository.deleteById(id);
 
-    }
-
-    @Override
-    public BookmarkGroupResponseDto getBookmarkGroup(Long id) {
-
-        BookmarkGroup bookmarkGroup = bookmarkGroupRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException
-                        ("해당 북마크 그룹이 존재하지 않습니다. (bookmarkGroupId: " + id + ")"));
-
-        return modelMapper.map(bookmarkGroup, BookmarkGroupResponseDto.class);
     }
 
 }

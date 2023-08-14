@@ -4,9 +4,11 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import personal.wifi.entity.bookmark.BookmarkGroup;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 @Getter
@@ -64,6 +66,7 @@ public class WifiData {
     @Column(name = "WORK_DTTM")
     private LocalDateTime workedDateTime; // 작업일자
 
+    // 현재 위치와 가까운 와이파이 조회 시 초기화
     private Double distance; // 현재 위치와의 거리(km)
 
     @Builder

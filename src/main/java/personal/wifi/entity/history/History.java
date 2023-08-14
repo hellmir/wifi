@@ -3,7 +3,6 @@ package personal.wifi.entity.history;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import personal.base.BaseEntity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -15,14 +14,14 @@ import java.time.LocalDateTime;
 public class History {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO) // Global Sequence 방식
     @Column(name = "history_id")
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "LAT", nullable = false)
     private Double latitude;
 
-    @Column(nullable = false)
+    @Column(name = "LNT", nullable = false)
     private Double longitude;
 
     @Column(nullable = false)
