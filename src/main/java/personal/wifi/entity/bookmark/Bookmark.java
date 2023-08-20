@@ -20,7 +20,7 @@ public class Bookmark {
     @Column(name = "bookmark_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "bookmark_group_id", nullable = false)
     private BookmarkGroup bookmarkGroup;
 
@@ -34,9 +34,6 @@ public class Bookmark {
     private Bookmark(BookmarkGroup bookmarkGroup, WifiData wifiData) {
 
         this.bookmarkGroup = bookmarkGroup;
-
-        bookmarkGroup.getBookmarkList().add(this);
-
         this.wifiData = wifiData;
         registeredTime = LocalDateTime.now();
 
