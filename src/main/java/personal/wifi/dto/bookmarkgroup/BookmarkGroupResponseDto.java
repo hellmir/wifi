@@ -1,4 +1,4 @@
-package personal.wifi.dto.bookmark_group;
+package personal.wifi.dto.bookmarkgroup;
 
 import lombok.Data;
 

@@ -5,10 +5,10 @@ import org.springframework.stereotype.Service;
 import personal.wifi.dto.bookmark.BookmarkRequestDto;
 import personal.wifi.dto.bookmark.BookmarkResponseDto;
 import personal.wifi.entity.bookmark.Bookmark;
-import personal.wifi.entity.bookmark_group.BookmarkGroup;
+import personal.wifi.entity.bookmarkgroup.BookmarkGroup;
 import personal.wifi.entity.wifi.WifiData;
 import personal.wifi.repository.bookmark.BookmarkRepository;
-import personal.wifi.repository.bookmark_group.BookmarkGroupRepository;
+import personal.wifi.repository.bookmarkgroup.BookmarkGroupRepository;
 import personal.wifi.repository.wifi.WifiRepository;
 
 import javax.persistence.EntityNotFoundException;

@@ -7,9 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import personal.wifi.dto.bookmark_group.BookmarkGroupResponseDto;
+import personal.wifi.dto.bookmarkgroup.BookmarkGroupResponseDto;
 import personal.wifi.dto.wifi.WifiDataResponseDto;
-import personal.wifi.service.bookmark_group.BookmarkGroupService;
+import personal.wifi.service.bookmarkgroup.BookmarkGroupService;
 import personal.wifi.service.history.HistoryService;
 import personal.wifi.service.wifi.WifiService;
 

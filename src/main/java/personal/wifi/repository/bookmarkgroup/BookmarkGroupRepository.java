@@ -1,7 +1,7 @@
-package personal.wifi.repository.bookmark_group;
+package personal.wifi.repository.bookmarkgroup;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import personal.wifi.entity.bookmark_group.BookmarkGroup;
+import personal.wifi.entity.bookmarkgroup.BookmarkGroup;
 
 import java.util.Optional;
 

@@ -1,4 +1,4 @@
-package personal.wifi.controller.bookmark_group;
+package personal.wifi.controller.bookmarkgroup;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -8,9 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import personal.wifi.dto.bookmark_group.BookmarkGroupRequestDto;
-import personal.wifi.dto.bookmark_group.BookmarkGroupResponseDto;
-import personal.wifi.service.bookmark_group.BookmarkGroupService;
+import personal.wifi.dto.bookmarkgroup.BookmarkGroupRequestDto;
+import personal.wifi.dto.bookmarkgroup.BookmarkGroupResponseDto;
+import personal.wifi.service.bookmarkgroup.BookmarkGroupService;
 
 import java.net.URI;
 import java.util.List;
