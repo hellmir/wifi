@@ -1,4 +1,4 @@
-package personal.wifi.dto.external_api;
+package personal.wifi.dto.externalapi;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

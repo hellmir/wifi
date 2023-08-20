@@ -1,14 +1,14 @@
-package personal.wifi.service.bookmark_group;
+package personal.wifi.service.bookmarkgroup;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import personal.wifi.dto.bookmark_group.BookmarkGroupRequestDto;
-import personal.wifi.dto.bookmark_group.BookmarkGroupResponseDto;
-import personal.wifi.entity.bookmark_group.BookmarkGroup;
+import personal.wifi.dto.bookmarkgroup.BookmarkGroupRequestDto;
+import personal.wifi.dto.bookmarkgroup.BookmarkGroupResponseDto;
+import personal.wifi.entity.bookmarkgroup.BookmarkGroup;
 import personal.wifi.exception.TryToSaveDuplicateNameException;
-import personal.wifi.repository.bookmark_group.BookmarkGroupRepository;
+import personal.wifi.repository.bookmarkgroup.BookmarkGroupRepository;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;

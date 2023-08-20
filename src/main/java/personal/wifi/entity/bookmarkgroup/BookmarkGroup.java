@@ -1,4 +1,4 @@
-package personal.wifi.entity.bookmark_group;
+package personal.wifi.entity.bookmarkgroup;
 
 import lombok.AccessLevel;
 import lombok.Getter;

@@ -1,7 +1,7 @@
-package personal.wifi.service.bookmark_group;
+package personal.wifi.service.bookmarkgroup;
 
-import personal.wifi.dto.bookmark_group.BookmarkGroupRequestDto;
-import personal.wifi.dto.bookmark_group.BookmarkGroupResponseDto;
+import personal.wifi.dto.bookmarkgroup.BookmarkGroupRequestDto;
+import personal.wifi.dto.bookmarkgroup.BookmarkGroupResponseDto;
 
 import java.util.List;
 

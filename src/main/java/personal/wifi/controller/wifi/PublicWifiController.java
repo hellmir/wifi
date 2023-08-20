@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
-import personal.wifi.dto.external_api.WifiApiResponseDto;
+import personal.wifi.dto.externalapi.WifiApiResponseDto;
 import personal.wifi.dto.wifi.WifiDataRequestDto;
 import personal.wifi.service.wifi.WifiService;
 

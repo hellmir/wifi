@@ -3,8 +3,7 @@ package personal.wifi.entity.bookmark;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-import personal.wifi.entity.bookmark_group.BookmarkGroup;
+import personal.wifi.entity.bookmarkgroup.BookmarkGroup;
 import personal.wifi.entity.wifi.WifiData;
 
 import javax.persistence.*;
