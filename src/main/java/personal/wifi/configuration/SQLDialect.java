@@ -99,7 +99,7 @@ public class SQLDialect extends Dialect {
     }
 
     public boolean hasAlterTable() {
-        return false; // As specify in NHibernate dialect
+        return false;
     }
 
     public boolean dropConstraints() {
